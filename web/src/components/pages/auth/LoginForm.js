@@ -14,8 +14,11 @@ import Logo from "components/shared/Logo";
 import * as React from "react";
 import {useFormik} from "formik";
 import SocialAuthButton from "components/button/SocialAuthButton";
+import AuthService from "services/AuthService";
+import {useRouter} from "next/navigation";
 
 export default function LoginForm() {
+    const router = useRouter();
     const theme = useTheme();
     const [showPassword, setShowPassword] = useState(false)
     const [loading, setLoading] = useState(false);
@@ -28,16 +31,16 @@ export default function LoginForm() {
 
     const handleSubmit = async (values) => {
         setLoading(true);
-        // return AuthService.Login(values)
-        //     .then(res => {
-        //         setLoading(false);
-        //         if (res.status === 200) {
-        //             return router.push('/app');
-        //         }
-        //     }).catch(err => {
-        //         console.log(err.response)
-        //         setError(err.response?.data?.message ?? 'Something wrong!');
-        //     })
+        return AuthService.Login(values)
+            .then(res => {
+                setLoading(false);
+                if (res.status === 200) {
+                    return router.push('/app');
+                }
+            }).catch(err => {
+                console.log(err.response)
+                setError(err.response?.data?.message ?? 'Something wrong!');
+            })
     };
 
     const handleSocialLogin = async (social) => {
@@ -84,12 +87,12 @@ export default function LoginForm() {
                         <FormLabel>Password</FormLabel>
                         <TextField
                             fullWidth
-                            name="email"
-                            value={formik.values.email}
+                            name="password"
+                            value={formik.values.password}
                             onChange={formik.handleChange}
                             placeholder="Your password"
-                            error={Boolean(formik.errors.email)}
-                            helperText={formik.errors.email}
+                            error={Boolean(formik.errors.password)}
+                            helperText={formik.errors.password}
                             type={showPassword ? 'text' : 'password'}
                             slotProps={{
                                 input: {

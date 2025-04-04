@@ -3,17 +3,17 @@ import {Button, styled} from "@mui/material";
 const AuthButton= styled(Button)(({theme}) => ({
     paddingTop: 12,
     paddingBottom: 12,
-    background: theme.palette.text.primary,
-
-    '&:hover': {
-        background: 'white',
-    }
+    // background: theme.palette.background.paper,
+    //
+    // '&:hover': {
+    //     background: 'white',
+    // }
 }));
 
 export default function SocialAuthButton(props) {
     const { children, ...rest } = props;
     return (
-        <AuthButton {...rest}>
+        <AuthButton variant="tonal" {...rest}>
             {children}
         </AuthButton>
     )

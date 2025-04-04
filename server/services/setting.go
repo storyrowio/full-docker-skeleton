@@ -109,7 +109,7 @@ func GetCloudinaryConfig() *models.CloudinaryInstanceSetting {
 	}
 
 	var res models.CloudinaryInstanceSetting
-	a, _ := json.Marshal(setting)
+	a, _ := json.Marshal(setting.Setting)
 	err := json.Unmarshal(a, &res)
 	if err != nil {
 		return nil
